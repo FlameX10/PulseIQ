@@ -14,7 +14,8 @@ import {
   Bell,
   ChevronRight,
   ClipboardListIcon,
-  Activity
+  Activity,
+  MessageCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +33,17 @@ const ACTION_CARDS = [
     border: "border-blue-100",
     tag: "Most used",
     tagColor: "bg-blue-50 text-blue-600",
+  },
+  {
+    id: "chat",
+    icon: MessageCircle,
+    label: "AI Health Assistant",
+    desc: "Chat with our AI to get personalized health insights based on your medical history.",
+    iconBg: "bg-cyan-100",
+    iconColor: "text-cyan-600",
+    border: "border-cyan-100",
+    tag: "New",
+    tagColor: "bg-cyan-50 text-cyan-600",
   },
   {
     id: "pregnancy",
@@ -189,28 +201,28 @@ function CapabilityCard({ cap }) {
  */
 export default function MainPage({
   patientName = "Patient",
-  onNavigate,
+  onNavigate: onNavigateProp,
   onStartAnalysis,
 }) {
   const navigate = useNavigate();
 
   const handleNavigate = (id) => {
-    // If onNavigate prop is provided, use it
-    if (onNavigate) {
-      onNavigate(id);
+    if (onNavigateProp) {
+      onNavigateProp(id);
       return;
     }
 
-    // Otherwise, handle navigation internally
-    switch (id) {
-      case "fitness":
-        navigate("/fitness-dashboard");
-        break;
-      case "appointment":
-        // Add other navigation cases as needed
-        break;
-      default:
-        console.log(`Navigate to: ${id}`);
+    const routes = {
+      chat: "/chat",
+      upload: "/upload-report",
+      appointment: "/appointment",
+      fitness: "/fitness-dashboard",
+    };
+
+    if (routes[id]) {
+      navigate(routes[id]);
+    } else {
+      console.log(`Navigate to: ${id}`);
     }
   };
 
@@ -443,4 +455,3 @@ export default function MainPage({
 }
 
 // ─── Demo (default export for preview) ───────────────────────────────────────
-

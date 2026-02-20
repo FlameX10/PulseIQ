@@ -5,7 +5,10 @@ import HomePage from './Components/HomePage.jsx';
 import AuthPage from './Components/Register.jsx';
 import MainPage from './Components/MainPage.jsx';
 import DoctorAppointment from './Components/DoctorAppointment.jsx';
+
 import FitnessDashboard from './Components/FitnessDashboard.jsx';
+import ChatBot from './Components/ChatBot.jsx';
+import UserReportUpload from './Components/UserReportUpload.jsx';
 
 // Generic auth guard (any logged-in user)
 function ProtectedRoute({ children }) {
@@ -76,6 +79,26 @@ function App() {
           <PatientRoute>
             <FitnessDashboard />
           </PatientRoute>
+        }
+      />
+
+      {/* Chat Bot */}
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <ChatBot />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Upload Medical Report */}
+      <Route
+        path="/upload-report"
+        element={
+          <ProtectedRoute>
+            <UserReportUpload />
+          </ProtectedRoute>
         }
       />
 

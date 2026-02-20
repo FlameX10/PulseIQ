@@ -1,0 +1,478 @@
+/* Fitness Dashboard - Minimal White/Blue */
+
+.fitness-dashboard {
+  min-height: 100vh;
+  position: relative;
+  background: #f3f4f6;
+  padding: 32px 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  overflow-x: hidden;
+}
+
+/* Header */
+.fd-header {
+  max-width: 1400px;
+  margin: 0 auto 32px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.fd-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.fd-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.fd-back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateX(-2px);
+}
+
+.fd-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.fd-title-icon {
+  color: #2563eb;
+}
+
+.fd-subtitle {
+  margin: 0;
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.fd-refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 16px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-refresh-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.fd-refresh-btn:hover::before {
+  left: 100%;
+}
+
+.fd-refresh-btn:hover {
+  background: #1d4ed8;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.35);
+}
+
+.fd-refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fd-refresh-icon {
+  transition: transform 0.3s ease;
+}
+
+.fd-refresh-icon.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* State Screens */
+.fd-state {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 48px 32px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #e5e7eb;
+}
+
+.fd-loading p,
+.fd-error p,
+.fd-auth p {
+  margin-top: 16px;
+  color: #0f172a;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.fd-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 4px solid #e5e7eb;
+  border-top-color: #2563eb;
+  margin: 0 auto;
+}
+
+.fd-try-again,
+.fd-connect-btn {
+  margin-top: 24px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.fd-try-again:hover,
+.fd-connect-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+.fd-auth-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  color: #2563eb;
+}
+
+/* Content Container */
+.fd-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Summary Cards */
+.fd-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.fd-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fd-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fd-card:hover::before {
+  opacity: 1;
+}
+
+.fd-card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.fd-card:hover .fd-card-glow {
+  opacity: 1;
+}
+
+.fd-card-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-card-steps .fd-card-icon-wrapper {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+}
+
+.fd-card-heart .fd-card-icon-wrapper {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.35);
+}
+
+.fd-card-calories .fd-card-icon-wrapper {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.35);
+}
+
+.fd-card-sleep .fd-card-icon-wrapper {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  box-shadow: 0 8px 20px rgba(79, 172, 254, 0.35);
+}
+
+.fd-card-icon {
+  width: 28px;
+  height: 28px;
+  color: white;
+  z-index: 1;
+}
+
+.fd-card h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fd-card-value {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.fd-unit {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.fd-card-sub {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Charts Grid */
+.fd-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.fd-chart-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.fd-chart-card:hover {
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+}
+
+.fd-chart-span {
+  grid-column: span 2;
+}
+
+.fd-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fd-chart-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.fd-chart-header span {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.fd-chart-icon {
+  width: 32px;
+  height: 32px;
+  color: #2563eb;
+}
+
+.fd-chart-wrapper {
+  flex: 1;
+  min-height: 300px;
+  position: relative;
+}
+
+.fd-doughnut-wrapper {
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fd-no-data {
+  margin: auto;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1rem;
+  padding: 40px 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .fd-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fd-chart-span {
+    grid-column: span 1;
+  }
+  
+  .fd-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .fitness-dashboard {
+    padding: 24px 16px;
+  }
+
+  .fd-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .fd-header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .fd-title {
+    font-size: 2rem;
+  }
+
+  .fd-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-card-value {
+    font-size: 2rem;
+  }
+
+  .fd-chart-wrapper {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fd-title {
+    font-size: 1.75rem;
+  }
+
+  .fd-card {
+    padding: 20px;
+  }
+
+  .fd-chart-card {
+    padding: 20px;
+  }
+}
+
+/* Scrollbar Styling */
+.fitness-dashboard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.fitness-dashboard::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.fitness-dashboard::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.fitness-dashboard::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

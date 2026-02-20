@@ -13,9 +13,11 @@ import {
   Sparkles,
   Bell,
   ChevronRight,
-  ClipboardListIcon
+  ClipboardListIcon,
+  Activity
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -85,6 +87,17 @@ const ACTION_CARDS = [
     border: "border-yellow-100",
     tag: null,
     tagColor: "",
+  },
+  {
+    id: "fitness",
+    icon: Activity,
+    label: "Fitness Dashboard",
+    desc: "Track your daily fitness metrics, heart rate, steps, calories, and sleep from your Google Fit data.",
+    iconBg: "bg-orange-100",
+    iconColor: "text-orange-600",
+    border: "border-orange-100",
+    tag: "New",
+    tagColor: "bg-orange-50 text-orange-600",
   },
 ];
 
@@ -179,6 +192,28 @@ export default function MainPage({
   onNavigate,
   onStartAnalysis,
 }) {
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    // If onNavigate prop is provided, use it
+    if (onNavigate) {
+      onNavigate(id);
+      return;
+    }
+
+    // Otherwise, handle navigation internally
+    switch (id) {
+      case "fitness":
+        navigate("/fitness-dashboard");
+        break;
+      case "appointment":
+        // Add other navigation cases as needed
+        break;
+      default:
+        console.log(`Navigate to: ${id}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
 
@@ -326,7 +361,7 @@ export default function MainPage({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {ACTION_CARDS.map((card) => (
-              <ActionCard key={card.id} card={card} onNavigate={onNavigate} />
+              <ActionCard key={card.id} card={card} onNavigate={handleNavigate} />
             ))}
           </div>
         </section>

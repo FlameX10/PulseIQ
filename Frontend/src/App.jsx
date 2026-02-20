@@ -5,6 +5,7 @@ import HomePage from './Components/HomePage.jsx';
 import AuthPage from './Components/Register.jsx';
 import MainPage from './Components/MainPage.jsx';
 import DoctorAppointment from './Components/DoctorAppointment.jsx';
+import FitnessDashboard from './Components/FitnessDashboard.jsx';
 
 // Generic auth guard (any logged-in user)
 function ProtectedRoute({ children }) {
@@ -64,6 +65,16 @@ function App() {
         element={
           <PatientRoute>
             <MainPage />
+          </PatientRoute>
+        }
+      />
+
+      {/* Fitness Dashboard */}
+      <Route
+        path="/fitness-dashboard"
+        element={
+          <PatientRoute>
+            <FitnessDashboard />
           </PatientRoute>
         }
       />

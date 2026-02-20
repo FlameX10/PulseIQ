@@ -109,4 +109,65 @@ export const authAPI = {
   },
 };
 
+// ML API configuration for medical RAG
+const ML_API_BASE_URL = import.meta.env.VITE_ML_API_BASE_URL || 'http://localhost:8000';
+
+// ML API functions for chatbot and report upload
+export const mlAPI = {
+  // Chat with AI health assistant
+  chat: async (userId, question) => {
+    const url = `${ML_API_BASE_URL}/chat/`;
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: String(userId),
+          question: question,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Chat API error:', error);
+      throw error;
+    }
+  },
+
+  // Upload medical record
+  uploadMedicalRecord: async (userId, file) => {
+    const url = `${ML_API_BASE_URL}/upload-medical-record/?user_id=${encodeURIComponent(userId)}`;
+    
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Upload API error:', error);
+      throw error;
+    }
+  },
+};
+
 export default apiRequest;

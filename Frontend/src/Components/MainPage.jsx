@@ -13,9 +13,11 @@ import {
   Sparkles,
   Bell,
   ChevronRight,
-  ClipboardListIcon
+  ClipboardListIcon,
+  MessageCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -30,6 +32,17 @@ const ACTION_CARDS = [
     border: "border-blue-100",
     tag: "Most used",
     tagColor: "bg-blue-50 text-blue-600",
+  },
+  {
+    id: "chat",
+    icon: MessageCircle,
+    label: "AI Health Assistant",
+    desc: "Chat with our AI to get personalized health insights based on your medical history.",
+    iconBg: "bg-cyan-100",
+    iconColor: "text-cyan-600",
+    border: "border-cyan-100",
+    tag: "New",
+    tagColor: "bg-cyan-50 text-cyan-600",
   },
   {
     id: "pregnancy",
@@ -176,9 +189,27 @@ function CapabilityCard({ cap }) {
  */
 export default function MainPage({
   patientName = "Patient",
-  onNavigate,
+  onNavigate: onNavigateProp,
   onStartAnalysis,
 }) {
+  const navigate = useNavigate();
+
+  // Navigation handler for action cards
+  const handleNavigate = (id) => {
+    // Route mappings for known action cards
+    const routes = {
+      chat: "/chat",
+      upload: "/upload-report",
+      appointment: "/appointment",
+    };
+
+    if (routes[id]) {
+      navigate(routes[id]);
+    } else if (onNavigateProp) {
+      onNavigateProp(id);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans">
 
@@ -326,7 +357,7 @@ export default function MainPage({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {ACTION_CARDS.map((card) => (
-              <ActionCard key={card.id} card={card} onNavigate={onNavigate} />
+              <ActionCard key={card.id} card={card} onNavigate={handleNavigate} />
             ))}
           </div>
         </section>

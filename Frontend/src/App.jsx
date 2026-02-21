@@ -75,7 +75,7 @@ function App() {
         }
       />
       {/* Appointment Booking */}
-      
+         <Route path="/appointment-booking" element={<ProtectedRoute><AppointmentBooking /></ProtectedRoute>} />  
 
       {/* Medication Adherence Assistant */}
       <Route
@@ -99,7 +99,7 @@ function App() {
 
    
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/main" replace />} />
     </Routes>
   );
 }

@@ -46,6 +46,7 @@ const NAV_GROUPS = [
     label: "Health",
     items: [
       { id: "fitness", label: "Fitness Dashboard", icon: Heart, path: "/fitness-dashboard" },
+      { id: "health-risk", label: "Health Risk", icon: ShieldAlert, path: "/health-risk" },
       { id: "nutrition", label: "Nutrition Planner", icon: Apple, path: "/nutrition-planner" },
       { id: "medicationAssistant", label: "Medication", icon: ClipboardListIcon, path: "/medication-adherence" },
       { id: "upload", label: "Upload Report", icon: FileUp, path: "/upload-report" },

@@ -159,7 +159,7 @@ const HealthRiskDashboard = () => {
   const fetchAQI = async (lat, lon) => {
     try {
       const res = await fetch(
-        `${API_BASE}/api/v1/aqi?lat=${lat}&lon=${lon}`
+        `${API_BASE}/aqi?lat=${lat}&lon=${lon}`
       );
       const result = await res.json();
 

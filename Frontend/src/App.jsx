@@ -16,6 +16,7 @@ import Appointmentbooking from './Components/Appointmentbooking.jsx';
 import SmartCarePlanGenerator from './Components/SmartCarePlanGenerator.jsx';
 import SkinDetection from './Components/SkinDetection.jsx';
 import NutritionPlanner from './Components/NutritionPlanner.jsx';
+import HealthRiskDashboard from './Components/HealthRiskDashboard.jsx';
 
 import DailyCheckIn from './Components/DailyCheckIn.jsx';
 import MedicationAdherenceAssistant from './Components/MedicationAdherenceAssistant.jsx';
@@ -76,6 +77,7 @@ function App() {
       <Route path="/appointment-booking" element={<ProtectedRouteWithLayout><AppointmentBooking /></ProtectedRouteWithLayout>} />
       <Route path="/medication-adherence" element={<ProtectedRouteWithLayout><MedicationAdherenceAssistant /></ProtectedRouteWithLayout>} />
       <Route path="/digital-twin" element={<ProtectedRouteWithLayout><DigitalTwinDashboard /></ProtectedRouteWithLayout>} />
+      <Route path="/health-risk" element={<ProtectedRouteWithLayout><HealthRiskDashboard /></ProtectedRouteWithLayout>} />
       <Route path="/profile" element={<ProtectedRouteWithLayout><ProfilePage /></ProtectedRouteWithLayout>} />
 
       <Route path="*" element={<Navigate to="/main" replace />} />

@@ -108,10 +108,14 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.error = null;
-      })
+  state.isLoading = false;
+  state.user = action.payload.user;
+  state.error = null;
+
+  if (action.payload.accessToken) {
+    localStorage.setItem("accessToken", action.payload.accessToken);
+  }
+})
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
@@ -128,6 +132,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.error = null;
+        if (action.payload.accessToken) {
+    localStorage.setItem("accessToken", action.payload.accessToken);
+  }
       })
       .addCase(registerDoctor.rejected, (state, action) => {
         state.isLoading = false;
@@ -142,10 +149,15 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.error = null;
-      })
+  state.isLoading = false;
+  state.user = action.payload.user;
+  state.error = null;
+
+  // ✅ SAVE TOKEN
+  if (action.payload.accessToken) {
+    localStorage.setItem("accessToken", action.payload.accessToken);
+  }
+})
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
@@ -161,6 +173,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.error = null;
+        localStorage.removeItem("accessToken");
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;

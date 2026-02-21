@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import AppNavbar from "./AppNavbar";
 
 const SkinDetection = () => {
   const [image, setImage] = useState(null);
@@ -79,7 +80,6 @@ Do not add extra sections.
 
       const text = response.response.text();
 
-      // 🔹 Parse structured response
       const observation =
         text.split("Observation:")[1]?.split("Explanation:")[0]?.trim() || "";
 
@@ -105,64 +105,101 @@ Do not add extra sections.
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-sm">
-      <h2 className="text-2xl font-semibold mb-6 text-center">
-        Skin Condition Detection
-      </h2>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50/30">
+      <AppNavbar />
 
-      {/* Upload */}
-      <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-xl cursor-pointer hover:border-blue-500 hover:bg-blue-50 transition">
-        {preview ? (
-          <img
-            src={preview}
-            alt="preview"
-            className="w-full h-full object-contain rounded-xl"
-          />
-        ) : (
-          <p className="text-gray-500">Click to upload skin image</p>
-        )}
-        <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => handleChange(e.target.files[0])}
-        />
-      </label>
-
-      {/* Button */}
-      <button
-        onClick={handleAnalyze}
-        disabled={loading}
-        className="mt-6 w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 disabled:opacity-50"
-      >
-        {loading ? "Analyzing..." : "Analyze Image"}
-      </button>
-
-      {/* Results */}
-      {analysis && (
-        <div className="mt-6 p-6 bg-blue-50 border border-blue-200 rounded-xl">
-          <h3 className="text-lg font-semibold mb-3">🩺 Skin Analysis</h3>
-
-          <p className="mb-4">{analysis.observation}</p>
-
-          <p className="mb-4">{analysis.explanation}</p>
-
-          {analysis.causes.length > 0 && (
-            <>
-              <h4 className="font-semibold mb-2">Possible Causes:</h4>
-              <ul className="list-disc pl-5 space-y-1">
-                {analysis.causes.map((cause, i) => (
-                  <li key={i}>{cause}</li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          <p className="text-xs text-gray-500 mt-4 border-t pt-2">
-            This is an AI-generated observation and not a medical diagnosis.
+      <div className="grid md:grid-cols-2 min-h-[calc(100vh-60px)]">
+        {/* LEFT PANEL — white & blue only, minimal */}
+        <div className="p-8 md:p-10 flex flex-col justify-center bg-white/80 backdrop-blur-sm md:border-r md:border-blue-100/60">
+          <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-3">
+            AI Skin Analyzer
+          </h1>
+          <p className="text-blue-700/90 mb-8 text-sm md:text-base">
+            Upload a skin image to get simple, AI-powered insights about possible conditions.
           </p>
+
+          <div className="space-y-5">
+            <div className="bg-blue-50/70 rounded-xl p-4 border border-blue-100/50">
+              <h3 className="font-semibold text-blue-900 text-sm mb-2">How to use</h3>
+              <ul className="list-disc pl-5 text-blue-800/80 text-sm space-y-1">
+                <li>Upload a clear photo of the affected skin area</li>
+                <li>Click &quot;Analyze Image&quot;</li>
+                <li>Review the AI-generated insights</li>
+              </ul>
+            </div>
+
+            <div className="bg-blue-50/70 rounded-xl p-4 border border-blue-100/50">
+              <h3 className="font-semibold text-blue-900 text-sm mb-2">Tips for best results</h3>
+              <ul className="list-disc pl-5 text-blue-800/80 text-sm space-y-1">
+                <li>Use good lighting</li>
+                <li>Keep the camera focused</li>
+                <li>Avoid filters or heavy editing</li>
+              </ul>
+            </div>
+
+            <div className="bg-blue-100/50 border border-blue-200/60 p-4 rounded-xl text-sm text-blue-800/90">
+              ⚠️ This tool provides informational insights only and is not a medical diagnosis.
+            </div>
+          </div>
         </div>
-      )}
+
+        {/* RIGHT PANEL — same palette, blends with left */}
+        <div className="p-8 md:p-10 flex flex-col justify-center bg-gradient-to-bl from-white/90 to-blue-50/40">
+          <div className="max-w-xl mx-auto w-full">
+            <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-blue-200 rounded-2xl cursor-pointer hover:border-blue-500 hover:bg-blue-50/50 transition bg-white/60">
+              {preview ? (
+                <img
+                  src={preview}
+                  alt="preview"
+                  className="w-full h-full object-contain rounded-2xl"
+                />
+              ) : (
+                <div className="text-center text-blue-800/80">
+                  <div className="text-4xl mb-2 opacity-70">📷</div>
+                  <p className="font-medium text-blue-900">
+                    Click to upload skin image
+                  </p>
+                  <p className="text-xs text-blue-600/70 mt-1">
+                    PNG, JPG, JPEG • Max 4MB
+                  </p>
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => handleChange(e.target.files[0])}
+              />
+            </label>
+
+            <button
+              onClick={handleAnalyze}
+              disabled={loading}
+              className="mt-6 w-full py-3 rounded-xl font-semibold text-white bg-blue-600 hover:bg-blue-700 transition disabled:opacity-50"
+            >
+              {loading ? "Analyzing..." : "Analyze Image"}
+            </button>
+
+            {analysis && (
+              <div className="mt-8 bg-white/90 border border-blue-100 rounded-2xl p-6 shadow-sm">
+                <h3 className="text-lg font-semibold text-blue-900 mb-4">🩺 Skin Analysis</h3>
+                <p className="text-blue-800/90 mb-4">{analysis.observation}</p>
+                <p className="text-blue-800/90 mb-4">{analysis.explanation}</p>
+                {analysis.causes.length > 0 && (
+                  <>
+                    <h4 className="font-semibold text-blue-900 mb-2">Possible Causes</h4>
+                    <ul className="list-disc pl-5 text-blue-800/90 space-y-1">
+                      {analysis.causes.map((cause, i) => (
+                        <li key={i}>{cause}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Target, TrendingUp, Calendar, Apple } from 'lucide-react';
+import AppNavbar from './AppNavbar';
 
 const NutritionPlanner = () => {
   const [meals, setMeals] = useState([]);
@@ -74,7 +75,9 @@ const NutritionPlanner = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-blue-50 p-4">
+    <div className="min-h-screen bg-blue-50">
+      <AppNavbar />
+      <div className="p-4">
       <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
         
         {/* Header */}
@@ -266,6 +269,7 @@ const NutritionPlanner = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

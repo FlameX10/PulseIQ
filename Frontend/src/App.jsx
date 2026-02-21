@@ -5,6 +5,7 @@ import './App.css';
 import HomePage from './Components/HomePage.jsx';
 import AuthPage from './Components/Register.jsx';
 import MainPage from './Components/MainPage.jsx';
+import MainLayout from './Components/MainLayout.jsx';
 import DoctorAppointment from './Components/DoctorAppointment.jsx';
 import AppointmentBooking from './Components/Appointmentbooking.jsx';
 import FitnessDashboard from './Components/FitnessDashboard.jsx';
@@ -19,6 +20,7 @@ import NutritionPlanner from './Components/NutritionPlanner.jsx';
 import DailyCheckIn from './Components/DailyCheckIn.jsx';
 import MedicationAdherenceAssistant from './Components/MedicationAdherenceAssistant.jsx';
 import DigitalTwinDashboard from './Components/DigitalTwinDashboard.jsx';
+import ProfilePage from './Components/ProfilePage.jsx';
 import { getCurrentUser } from './store/authSlice.js';
 
 // Generic auth guard — redirects to login if not logged in
@@ -31,6 +33,18 @@ function ProtectedRoute({ children }) {
   }
 
   return children;
+}
+
+// Protected route with sidebar layout
+function ProtectedRouteWithLayout({ children }) {
+  const { user } = useSelector((state) => state.auth);
+  const savedUser = localStorage.getItem('user');
+
+  if (!user && !savedUser) {
+    return <Navigate to="/auth?mode=login" replace />;
+  }
+
+  return <MainLayout>{children}</MainLayout>;
 }
 
 function App() {
@@ -48,56 +62,21 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<AuthPage />} />
 
-      <Route path="/main" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
-      <Route path="/fitness-dashboard" element={<ProtectedRoute><FitnessDashboard /></ProtectedRoute>} />
-      <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
-      <Route path="/skin-detection" element={<ProtectedRoute><SkinDetection /></ProtectedRoute>} />
-      <Route path="/nutrition-planner" element={<ProtectedRoute><NutritionPlanner /></ProtectedRoute>} />
-      <Route path="/chat" element={<ProtectedRoute><ChatBot /></ProtectedRoute>} />
-      <Route path="/upload-report" element={<ProtectedRoute><UserReportUpload /></ProtectedRoute>} />
-      <Route path="/appointments" element={<ProtectedRoute><Appointmentbooking /></ProtectedRoute>} />
-      <Route path="/care-plan" element={<ProtectedRoute><SmartCarePlanGenerator /></ProtectedRoute>} />
-      <Route path="/doctor/appointments" element={<ProtectedRoute><DoctorAppointment /></ProtectedRoute>} />
-      {/* Patient area */}
-     
-
-      
-      
-
-
-      {/* Daily Check-In */}
-      <Route
-        path="/daily-checkin"
-        element={
-          <ProtectedRoute>
-            <DailyCheckIn />
-          </ProtectedRoute>
-        }
-      />
-      {/* Appointment Booking */}
-         <Route path="/appointment-booking" element={<ProtectedRoute><AppointmentBooking /></ProtectedRoute>} />  
-
-      {/* Medication Adherence Assistant */}
-      <Route
-        path="/medication-adherence"
-        element={
-          <ProtectedRoute>
-            <MedicationAdherenceAssistant />
-          </ProtectedRoute> 
-        }
-      />
-
-      {/* Chat Bot */}
-      <Route
-        path="/digital-twin"
-        element={
-          <ProtectedRoute>  
-            <DigitalTwinDashboard />
-          </ProtectedRoute>
-        }
-      />
-
-   
+      <Route path="/main" element={<ProtectedRouteWithLayout><MainPage /></ProtectedRouteWithLayout>} />
+      <Route path="/fitness-dashboard" element={<ProtectedRouteWithLayout><FitnessDashboard /></ProtectedRouteWithLayout>} />
+      <Route path="/assessment" element={<ProtectedRouteWithLayout><Assessment /></ProtectedRouteWithLayout>} />
+      <Route path="/skin-detection" element={<ProtectedRouteWithLayout><SkinDetection /></ProtectedRouteWithLayout>} />
+      <Route path="/nutrition-planner" element={<ProtectedRouteWithLayout><NutritionPlanner /></ProtectedRouteWithLayout>} />
+      <Route path="/chat" element={<ProtectedRouteWithLayout><ChatBot /></ProtectedRouteWithLayout>} />
+      <Route path="/upload-report" element={<ProtectedRouteWithLayout><UserReportUpload /></ProtectedRouteWithLayout>} />
+      <Route path="/appointments" element={<ProtectedRouteWithLayout><Appointmentbooking /></ProtectedRouteWithLayout>} />
+      <Route path="/care-plan" element={<ProtectedRouteWithLayout><SmartCarePlanGenerator /></ProtectedRouteWithLayout>} />
+      <Route path="/doctor/appointments" element={<ProtectedRouteWithLayout><DoctorAppointment /></ProtectedRouteWithLayout>} />
+      <Route path="/daily-checkin" element={<ProtectedRouteWithLayout><DailyCheckIn /></ProtectedRouteWithLayout>} />
+      <Route path="/appointment-booking" element={<ProtectedRouteWithLayout><AppointmentBooking /></ProtectedRouteWithLayout>} />
+      <Route path="/medication-adherence" element={<ProtectedRouteWithLayout><MedicationAdherenceAssistant /></ProtectedRouteWithLayout>} />
+      <Route path="/digital-twin" element={<ProtectedRouteWithLayout><DigitalTwinDashboard /></ProtectedRouteWithLayout>} />
+      <Route path="/profile" element={<ProtectedRouteWithLayout><ProfilePage /></ProtectedRouteWithLayout>} />
 
       <Route path="*" element={<Navigate to="/main" replace />} />
     </Routes>

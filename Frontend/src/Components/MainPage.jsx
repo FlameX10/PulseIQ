@@ -16,7 +16,6 @@ import {
   ScanFace,
   Apple,
 } from "lucide-react";
-import AppNavbar from "./AppNavbar";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -267,7 +266,6 @@ export default function MainPage({
 
   return (
     <div className="min-h-screen main-page-theme font-sans">
-      <AppNavbar />
 
       {/* ── 1. Welcome Hero — Full Width ── */}
       <motion.section

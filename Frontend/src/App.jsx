@@ -14,6 +14,8 @@ import Assessment from './Components/Assessment.jsx';
 import MedicationAdherenceTracker from './Components/MedicationAdherenceTracker.jsx';
 import Appointmentbooking from './Components/Appointmentbooking.jsx';
 import SmartCarePlanGenerator from './Components/SmartCarePlanGenerator.jsx';
+import SkinDetection from './Components/SkinDetection.jsx';
+import NutritionPlanner from './Components/NutritionPlanner.jsx';
 import { getCurrentUser } from './store/authSlice.js';
 
 // Generic auth guard — redirects to login if not logged in
@@ -28,27 +30,12 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-// Public only route — redirects logged-in users away from auth page
-function PublicRoute({ children }) {
-  const { user } = useSelector((state) => state.auth);
-  const savedUser = localStorage.getItem('user');
-  const resolvedUser = user || (savedUser ? JSON.parse(savedUser) : null);
-
-  if (resolvedUser) {
-    return <Navigate to={resolvedUser?.usertype === 'doctor' ? '/doctor/appointments' : '/main'} replace />;
-  }
-
-  return children;
-}
-
 function App() {
   const dispatch = useDispatch();
 
-  // Initialize auth on app load - restore user data if saved
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
-      // Attempt to refresh user data from backend (cookie will be sent automatically)
       dispatch(getCurrentUser());
     }
   }, [dispatch]);
@@ -56,19 +43,18 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/auth" element={<PublicRoute><AuthPage /></PublicRoute>} />
+      <Route path="/auth" element={<AuthPage />} />
 
-      {/* Patient area */}
       <Route path="/main" element={<ProtectedRoute><MainPage /></ProtectedRoute>} />
       <Route path="/fitness-dashboard" element={<ProtectedRoute><FitnessDashboard /></ProtectedRoute>} />
       <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
+      <Route path="/skin-detection" element={<ProtectedRoute><SkinDetection /></ProtectedRoute>} />
+      <Route path="/nutrition-planner" element={<ProtectedRoute><NutritionPlanner /></ProtectedRoute>} />
       <Route path="/chat" element={<ProtectedRoute><ChatBot /></ProtectedRoute>} />
       <Route path="/upload-report" element={<ProtectedRoute><UserReportUpload /></ProtectedRoute>} />
       <Route path="/appointments" element={<ProtectedRoute><Appointmentbooking /></ProtectedRoute>} />
       <Route path="/medication-tracker" element={<ProtectedRoute><MedicationAdherenceTracker /></ProtectedRoute>} />
       <Route path="/care-plan" element={<ProtectedRoute><SmartCarePlanGenerator /></ProtectedRoute>} />
-
-      {/* Doctor area */}
       <Route path="/doctor/appointments" element={<ProtectedRoute><DoctorAppointment /></ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -16,6 +16,7 @@ import { Bar, Line, Doughnut } from "react-chartjs-2";
 import { motion, AnimatePresence } from "framer-motion";
 import { Activity, Heart, Flame, Moon, RefreshCw, TrendingUp, Zap, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import AppNavbar from "./AppNavbar";
 import "./FitnessDashboard.css";
 
 ChartJS.register(
@@ -99,6 +100,19 @@ const FitnessDashboard = () => {
       }
 
       setData(body);
+
+      // Save fitness data to localStorage for real-time chat analysis
+      if (body) {
+        localStorage.setItem('fitnessData', JSON.stringify({
+          heartRate: body.heartRate,
+          steps: body.steps,
+          calories: body.calories,
+          sleep: body.sleep,
+          bloodPressure: body.bloodPressure,
+          spO2: body.spO2,
+          temperature: body.temperature,
+        }));
+      }
 
       // Generate heart rate history
       if (body.heartRate) {
@@ -222,6 +236,7 @@ const FitnessDashboard = () => {
 
   return (
     <div className="fitness-dashboard">
+      <AppNavbar />
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

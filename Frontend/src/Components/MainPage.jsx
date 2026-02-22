@@ -279,7 +279,7 @@ const { user } = useSelector((state) => state.auth); // Get user from Redux
       >
         {/* Background image */}
         <img
-          src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1600&auto=format&fit=crop&q=80"
+          src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1600&auto=format&fit=crop&q=8"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -375,36 +375,106 @@ const { user } = useSelector((state) => state.auth); // Get user from Redux
 
       <main className="max-w-6xl mx-auto px-6 py-10 space-y-12 main-content">
 
-        {/* ── 2. Main Action Cards ── */}
-        <section>
-          <div className="flex items-center justify-between mb-5">
-            <div>
-              <h2 className="text-slate-900 font-bold text-lg">What would you like to do?</h2>
-              <p className="text-slate-400 text-sm mt-0.5">Select a feature to get started</p>
-            </div>
+        {/* ── 2. Why Early Detection Matters ── */}
+        <section className="grid md:grid-cols-2 gap-8 items-center">
+          <img
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80"
+            alt="Preventive healthcare"
+            className="rounded-2xl shadow-md"
+          />
+          <div>
+            <h2 className="text-slate-900 font-bold text-xl mb-3">
+              Why Early Detection Matters
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed mb-3">
+              Many health conditions develop silently before symptoms appear.
+              PulseIQ continuously analyzes your health patterns to detect risks early
+              and guide you toward preventive care.
+            </p>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Detect risks before symptoms appear</li>
+              <li>Reduce long-term treatment costs</li>
+              <li>Enable timely medical intervention</li>
+              <li>Improve quality of life</li>
+            </ul>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ACTION_CARDS.map((card) => (
-              <ActionCard key={card.id} card={card} onNavigate={handleNavigate} />
-            ))}
+        {/* ── 3. Digital Twin Section ── */}
+        <section className="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-slate-900 font-bold text-xl mb-3">
+              Your Digital Twin — A Virtual Model of Your Health
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed mb-3">
+              PulseIQ creates a Digital Twin — a virtual representation of your
+              health that learns from your lifestyle, medical history, and daily
+              habits to predict potential risks and provide personalized guidance.
+            </p>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Predict future health risks</li>
+              <li>Track long-term health trends</li>
+              <li>Provide preventive recommendations</li>
+              <li>Support doctors with data-driven insights</li>
+            </ul>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&auto=format&fit=crop&q=80"
+            alt="Digital twin health analytics"
+            className="rounded-2xl shadow-md"
+          />
+        </section>
+
+        {/* ── 4. AI Health Assistant Section ── */}
+        <section className="grid md:grid-cols-2 gap-8 items-center">
+        <img
+        src="https://plus.unsplash.com/premium_photo-1677094310919-d0361465d3be?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="AI medical chatbot"
+          className="rounded-2xl shadow-md w-full h-auto"
+        />
+          <div>
+            <h2 className="text-slate-900 font-bold text-xl mb-3">
+              24/7 AI Health Assistant
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed mb-3">
+              Have a health question? Our AI Health Assistant provides reliable,
+              personalized guidance using medical knowledge and your health data —
+              anytime, anywhere.
+            </p>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Understand medical reports easily</li>
+              <li>Get lifestyle & wellness advice</li>
+              <li>Ask symptom-related questions</li>
+              <li>Receive personalized health insights</li>
+            </ul>
           </div>
         </section>
 
-        {/* ── 3. AI Capabilities Section ── */}
-        <section>
-          <div className="mb-5">
-            <span className="text-blue-600 text-xs font-bold uppercase tracking-widest">Powered by AI</span>
-            <h2 className="text-slate-900 font-bold text-lg mt-1">What our AI can do for you</h2>
-            <p className="text-slate-400 text-sm mt-0.5">Clinical-grade intelligence working in the background, for you.</p>
+        {/* ── 5. Unified Health Dashboard Section ── */}
+        <section className="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-slate-900 font-bold text-xl mb-3">
+              All Your Health Data in One Place
+            </h2>
+            <p className="text-slate-600 text-sm leading-relaxed mb-3">
+              PulseIQ integrates your fitness, medical reports, medication,
+              and health risks into one unified dashboard — giving you a complete
+              picture of your well-being.
+            </p>
+            <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+              <li>Fitness & activity tracking</li>
+              <li>Medication adherence monitoring</li>
+              <li>Health risk insights</li>
+              <li>Secure medical report storage</li>
+            </ul>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {AI_CAPABILITIES.map((cap) => (
-              <CapabilityCard key={cap.title} cap={cap} />
-            ))}
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80"
+            alt="Health dashboard analytics"
+            className="rounded-2xl shadow-md"
+          />
         </section>
+
 
         {/* ── 4. Info / Alert Section ── */}
         <section>

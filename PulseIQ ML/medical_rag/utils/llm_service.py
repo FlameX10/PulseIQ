@@ -15,9 +15,14 @@ def generate_response(prompt):
         )
         return response.text
     except errors.ClientError as e:
-        if e.status_code == 429:
+        # ClientError might have different attributes, check error message instead
+        error_str = str(e).lower()
+        if "429" in error_str or "quota" in error_str or "rate limit" in error_str:
             raise Exception("API quota exceeded. Please try again later or upgrade to a paid plan.")
         else:
             raise Exception(f"API Error: {str(e)}")
     except Exception as e:
+        error_str = str(e).lower()
+        if "quota" in error_str or "429" in error_str or "rate limit" in error_str:
+            raise Exception("API quota exceeded. Please try again later or upgrade to a paid plan.")
         raise Exception(f"Error generating response: {str(e)}")

@@ -77,6 +77,13 @@ def analyze_digital_twin(chat_history):
     try:
         response = generate_response(prompt)
         
+        if not response:
+            return {
+                "risk_level": "None",
+                "summary": "Unable to analyze at this time",
+                "show_alert": False
+            }
+        
         # Parse response
         lines = response.split('\n')
         risk_level = "None"
@@ -103,7 +110,7 @@ def analyze_digital_twin(chat_history):
             }
     
     except Exception as e:
-        print(f"Error analyzing digital twin: {e}")
+        print(f"Error analyzing digital twin: {type(e).__name__}: {str(e)}")
         return {
             "risk_level": "None",
             "summary": "Unable to analyze at this time",

@@ -89,6 +89,26 @@ export default function ChatBot() {
       const response = await mlAPI.chat(userId, userMessage.text, watchData);
       console.log("Chat response received:", response);
 
+      // Check if response has an error
+      if (response.error) {
+        console.error("Chat API error:", response.error, response.message);
+        setError(response.message || response.error);
+        const errorMessage = {
+          id: Date.now() + 1,
+          type: "bot",
+          text: response.message || "I'm sorry, I encountered an error while processing your request. Please try again.",
+          isError: true,
+          timestamp: new Date(),
+        };
+        setMessages((prev) => [...prev, errorMessage]);
+        return;
+      }
+
+      // Only proceed if we have a valid response
+      if (!response.final_response) {
+        throw new Error("Invalid response format from chat API");
+      }
+
       const botMessage = {
         id: Date.now() + 1,
         type: "bot",

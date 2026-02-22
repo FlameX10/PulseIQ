@@ -37,7 +37,7 @@ const NAV_GROUPS = [
     label: "AI Tools",
     items: [
       { id: "chat", label: "AI Health Assistant", icon: MessageCircle, path: "/chat" },
-      { id: "care-plan", label: "Smart Care Plan", icon: Sparkles, path: "/care-plan" },
+      // { id: "care-plan", label: "Smart Care Plan", icon: Sparkles, path: "/care-plan" },
       { id: "assessment", label: "Assessment", icon: Brain, path: "/assessment" },
       { id: "skinDetection", label: "Skin Detection", icon: ScanFace, path: "/skin-detection" },
     ],
@@ -47,7 +47,7 @@ const NAV_GROUPS = [
     items: [
       { id: "fitness", label: "Fitness Dashboard", icon: Heart, path: "/fitness-dashboard" },
       { id: "health-risk", label: "Health Risk", icon: ShieldAlert, path: "/health-risk" },
-      { id: "nutrition", label: "Nutrition Planner", icon: Apple, path: "/nutrition-planner" },
+      // { id: "nutrition", label: "Nutrition Planner", icon: Apple, path: "/nutrition-planner" },
       { id: "medicationAssistant", label: "Medication", icon: ClipboardListIcon, path: "/medication-adherence" },
       { id: "upload", label: "Upload Report", icon: FileUp, path: "/upload-report" },
     ],

@@ -71,7 +71,7 @@ function App() {
       <Route path="/chat" element={<ProtectedRouteWithLayout><ChatBot /></ProtectedRouteWithLayout>} />
       <Route path="/upload-report" element={<ProtectedRouteWithLayout><UserReportUpload /></ProtectedRouteWithLayout>} />
       <Route path="/appointments" element={<ProtectedRouteWithLayout><Appointmentbooking /></ProtectedRouteWithLayout>} />
-      <Route path="/care-plan" element={<ProtectedRouteWithLayout><SmartCarePlanGenerator /></ProtectedRouteWithLayout>} />
+      {/* <Route path="/care-plan" element={<ProtectedRouteWithLayout><SmartCarePlanGenerator /></ProtectedRouteWithLayout>} /> */}
       <Route path="/doctor/appointments" element={<ProtectedRouteWithLayout><DoctorAppointment /></ProtectedRouteWithLayout>} />
       <Route path="/daily-checkin" element={<ProtectedRouteWithLayout><DailyCheckIn /></ProtectedRouteWithLayout>} />
       <Route path="/appointment-booking" element={<ProtectedRouteWithLayout><AppointmentBooking /></ProtectedRouteWithLayout>} />
